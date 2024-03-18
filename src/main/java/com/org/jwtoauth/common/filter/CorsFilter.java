@@ -1,4 +1,4 @@
-package com.org.springbootskyfold.config.filter;
+package com.org.jwtoauth.common.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,11 +75,6 @@ public class CorsFilter implements Filter {
                 .orElse("");
     }
 
-    private static boolean contains(Set<String> set, String value) {
-        return set.stream()
-                .anyMatch(s -> s != null && value.trim().equalsIgnoreCase(s.trim()));
-    }
-
     public Set<String> accessControlAllowOrigins() {
         return toSetOfStrings(this.accessControlAllowOrigins);
     }
@@ -96,17 +91,6 @@ public class CorsFilter implements Filter {
         if (value != null && !value.trim().isEmpty()) {
             return Arrays.stream(value.split(","))
                     .map(String::trim)
-                    .collect(Collectors.toSet());
-        }
-
-        return Collections.emptySet();
-    }
-
-    private static Set<Pattern> toSetOfPatterns(String value) {
-        if (value != null && !value.trim().isEmpty()) {
-            return Arrays.stream(value.split(","))
-                    .map(String::trim)
-                    .map(Pattern::compile)
                     .collect(Collectors.toSet());
         }
 
